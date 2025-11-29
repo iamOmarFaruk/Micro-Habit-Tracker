@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Micro Habit Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Offline-first • LocalStorage CRUD</p>
+        <h1>Micro Habit Tracker</h1>
+        <p class="subhead">Capture small habits, log check-ins, and keep streaks without any backend.</p>
+        <div class="hero-actions">
+          <button id="export-btn" class="ghost">Export data</button>
+          <label class="file-import">
+            <input type="file" id="import-file" accept="application/json" />
+            <span>Import JSON</span>
+          </label>
+          <button id="clear-btn" class="danger">Reset everything</button>
+        </div>
+      </div>
+      <div class="glow-card">
+        <p class="glow-label">How it earns $100</p>
+        <ul>
+          <li>Sell a polished offline tracker for $5–10 (10–20 copies).</li>
+          <li>Bundle with a printable habit journal as an upsell.</li>
+          <li>Offer a branded version to a coach for $50–100.</li>
+          <li>Add a tip jar / pay-what-you-want option.</li>
+        </ul>
+      </div>
+    </header>
+
+    <section class="stats" aria-label="Stats">
+      <div class="stat">
+        <p class="label">Habits</p>
+        <p class="value" id="stat-habits">0</p>
+      </div>
+      <div class="stat">
+        <p class="label">Check-ins this week</p>
+        <p class="value" id="stat-week">0</p>
+      </div>
+      <div class="stat">
+        <p class="label">Best streak</p>
+        <p class="value" id="stat-best">0</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-header">
+        <h2 id="form-title">Add a habit</h2>
+        <p class="muted">Name, category, weekly target, and color tag.</p>
+      </div>
+      <form id="habit-form" autocomplete="off">
+        <div class="grid">
+          <label class="field">
+            <span>Name</span>
+            <input id="habit-name" name="name" required placeholder="e.g. Drink water" />
+          </label>
+          <label class="field">
+            <span>Category</span>
+            <input id="habit-category" name="category" placeholder="Health, Work, Mind" />
+          </label>
+          <label class="field">
+            <span>Weekly target (days)</span>
+            <input id="habit-target" name="target" type="number" min="1" max="7" value="3" required />
+          </label>
+          <label class="field">
+            <span>Color</span>
+            <input id="habit-color" name="color" type="color" value="#6b8afd" />
+          </label>
+        </div>
+        <div class="actions">
+          <button type="submit" id="submit-btn">Save habit</button>
+          <button type="button" id="cancel-edit" class="ghost" hidden>Cancel edit</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel">
+      <div class="panel-header">
+        <h2>Habits</h2>
+        <p class="muted">Log today, edit, or delete. Everything stays in your browser.</p>
+      </div>
+      <div id="habit-list" class="habit-list" aria-live="polite"></div>
+    </section>
+  </div>
+
+  <template id="habit-template">
+    <article class="habit-card">
+      <div class="habit-meta">
+        <div class="color-dot"></div>
+        <div>
+          <h3 class="habit-name"></h3>
+          <p class="habit-subtitle"></p>
+        </div>
+      </div>
+      <div class="streaks">
+        <div>
+          <p class="label">Current streak</p>
+          <p class="value current-streak">0</p>
+        </div>
+        <div>
+          <p class="label">Best</p>
+          <p class="value best-streak">0</p>
+        </div>
+        <div>
+          <p class="label">This week</p>
+          <p class="value week-count">0</p>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="primary log-btn"></button>
+        <div class="icon-actions">
+          <button class="ghost edit-btn" title="Edit">Edit</button>
+          <button class="ghost delete-btn" title="Delete">Delete</button>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
